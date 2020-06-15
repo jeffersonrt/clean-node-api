@@ -1,4 +1,4 @@
-import { badRequest } from '../../helpers/http-helper'
+import { badRequest, serverError } from '../../helpers/http-helper'
 import { MissingParamError, InvalidParamError } from '../../errors'
 import { LoginController } from './login'
 import { EmailValidator, HttpRequest } from '../signup/signup-protocols'
@@ -37,9 +37,7 @@ describe('Login Controller', () => {
   test('Should return 400 if email is not provided', async () => {
     const { sut } = makeSut()
     const httpRequest = {
-      body: {
-        password: 'any_password'
-      }
+      body: { password: 'any_password' }
     }
 
     const httpResponse = await sut.handle(httpRequest)
@@ -49,9 +47,7 @@ describe('Login Controller', () => {
   test('Should return 400 if password is not provided', async () => {
     const { sut } = makeSut()
     const httpRequest = {
-      body: {
-        email: 'any_email@mail.com'
-      }
+      body: { email: 'any_email@mail.com' }
     }
 
     const httpResponse = await sut.handle(httpRequest)
@@ -70,5 +66,14 @@ describe('Login Controller', () => {
     jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(badRequest(new InvalidParamError('email')))
+  })
+
+  test('Should return 500 if EmailValidator throws', async () => {
+    const { sut, emailValidatorStub } = makeSut()
+    jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
