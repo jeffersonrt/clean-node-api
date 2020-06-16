@@ -9,7 +9,8 @@ import {
 import {
   badRequest,
   serverError,
-  unauthorized
+  unauthorized,
+  ok
 } from '../../helpers/http-helper'
 
 export class LoginController implements Controller {
@@ -42,7 +43,7 @@ export class LoginController implements Controller {
         return unauthorized()
       }
 
-      return await new Promise((resolve) => resolve())
+      return ok({ accessToken })
     } catch (error) {
       return serverError(error)
     }
