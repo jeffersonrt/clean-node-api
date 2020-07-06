@@ -4,7 +4,7 @@ import { MongoHelper } from '../../infra/db/mongodb/helpers/mongo-helper'
 
 describe('SignUp Routes', () => {
   beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL as string)
+    await MongoHelper.connect(process.env.MONGO_URL)
   })
 
   beforeEach(async () => {
@@ -23,7 +23,7 @@ describe('SignUp Routes', () => {
         name: 'jeff',
         email: 'hi@jeff.com',
         password: '123',
-        passwordConfirmation: '123',
+        passwordConfirmation: '123'
       })
       .expect(200)
   })

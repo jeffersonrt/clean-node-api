@@ -4,12 +4,12 @@ import { LoginController } from './login'
 import {
   Validation,
   HttpRequest,
-  Authentication,
+  Authentication
 } from '../login/login-protocols'
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth(email: string, password: string): Promise<string> {
+    async auth (email: string, password: string): Promise<string> {
       return await new Promise((resolve) => resolve('any_token'))
     }
   }
@@ -19,13 +19,13 @@ const makeAuthentication = (): Authentication => {
 const makeFakeRequest = (): HttpRequest => ({
   body: {
     email: 'any_email@mail.com',
-    password: 'any_password',
-  },
+    password: 'any_password'
+  }
 })
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
-    validate(input: any): Error | null {
+    validate (input: any): Error {
       return null
     }
   }
@@ -46,7 +46,7 @@ const makeSut = (): SutTypes => {
   return {
     sut,
     authenticationStub,
-    validationStub,
+    validationStub
   }
 }
 

@@ -4,7 +4,7 @@ import { MissingParamError } from '../../errors'
 
 const makeValidationStub = (): Validation => {
   class ValidationStub implements Validation {
-    validate (input: any): Error | null {
+    validate (input: any): Error {
       return null
     }
   }
