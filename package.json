@@ -47,6 +47,7 @@
     "bcrypt": "^4.0.1",
     "express": "^4.17.1",
     "fast-glob": "^3.2.2",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.8",
     "validator": "^13.0.0"
   }
