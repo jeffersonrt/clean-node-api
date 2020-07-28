@@ -2,9 +2,12 @@
   "compilerOptions": {
     "target": "ES2019",
     "module": "commonjs",
-    "allowJs": true,
     "outDir": "./dist",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
-  }
+  },
+  "include": ["src"],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts",
+  ]
 }
