@@ -1,10 +1,10 @@
 import { serverError, unauthorized, ok } from '../../helpers/http/http-helper'
 import { LoginController } from './login-controller'
-import { AuthenticationModel } from '../../../domain/usecases/authentication'
 import {
   Validation,
   HttpRequest,
-  Authentication
+  Authentication,
+  AuthenticationModel
 } from './login-controller-protocols'
 
 const makeAuthentication = (): Authentication => {
