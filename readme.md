@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jeffersonrt/clean-node-api.svg?branch=master)](https://travis-ci.org/jeffersonrt/clean-node-api)
+[![Coverage Status](https://coveralls.io/repos/github/jeffersonrt/clean-node-api/badge.svg)](https://coveralls.io/github/jeffersonrt/clean-node-api)
 # **Clean Node API**
 
 Essa API faz parte do treinamento do professor Rodrigo Manguinho (Mango) na Udemy.
