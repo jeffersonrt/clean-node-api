@@ -23,6 +23,29 @@ const makeFakeSurveys = (): SurveyModel[] => ([
   }
 ])
 
+const makeLoadSurveys = (): LoadSurveys => {
+  class LoadSurveysStub implements LoadSurveys {
+    async load (): Promise<SurveyModel[]> {
+      return await new Promise(resolve => resolve(makeFakeSurveys()))
+    }
+  }
+  return new LoadSurveysStub()
+}
+
+interface SutTypes {
+  sut: LoadSurveysController
+  loadSurveysStubs: LoadSurveys
+}
+
+const makeSut = (): SutTypes => {
+  const loadSurveysStubs = makeLoadSurveys()
+  const sut = new LoadSurveysController(loadSurveysStubs)
+  return {
+    sut,
+    loadSurveysStubs
+  }
+}
+
 describe('LoadSurveys Controller', () => {
   beforeAll(() => {
     MockDate.set(new Date())
@@ -33,15 +56,8 @@ describe('LoadSurveys Controller', () => {
   })
 
   test('Should call LoadSurveys', async () => {
-    class LoadSurveysStub implements LoadSurveys {
-      async load (): Promise<SurveyModel[]> {
-        return await new Promise(resolve => resolve(makeFakeSurveys()))
-      }
-    }
-
-    const loadSurveysStubs = new LoadSurveysStub()
+    const { sut, loadSurveysStubs } = makeSut()
     const loadSpy = jest.spyOn(loadSurveysStubs, 'load')
-    const sut = new LoadSurveysController(loadSurveysStubs)
     await sut.handle({})
     expect(loadSpy).toBeCalled()
   })
