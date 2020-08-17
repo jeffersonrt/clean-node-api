@@ -5,6 +5,7 @@
   "extends": "standard-with-typescript",
   "plugins": ["prettier"],
   "rules": {
-    "@typescript-eslint/strict-boolean-expressions": "off"
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/consistent-type-definitions": "off"
   }
 }
