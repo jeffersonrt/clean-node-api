@@ -13,7 +13,7 @@ export const surveyResultPath = {
           }
         }
       }
-    },  
+    },
     parameters: [{
       in: 'path',
       name: 'surveyId',
