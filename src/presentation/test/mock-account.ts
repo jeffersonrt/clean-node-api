@@ -3,6 +3,7 @@ import { Authentication, AuthenticationParams } from '@/domain/usecases/account/
 import { LoadAccountByToken } from '@/domain/usecases/account/load-account-by-token'
 import { AccountModel } from '@/domain/models/account'
 import { mockAccountModel } from '@/domain/test'
+import { AuthenticationModel } from '@/domain/models/authentication'
 
 export const mockAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
@@ -15,8 +16,11 @@ export const mockAddAccount = (): AddAccount => {
 
 export const mockAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationParams): Promise<string> {
-      return await Promise.resolve('any_token')
+    async auth (authentication: AuthenticationParams): Promise<AuthenticationModel> {
+      return await Promise.resolve({
+        accessToken: 'any_token',
+        name: 'any_name'
+      })
     }
   }
   return new AuthenticationStub()
