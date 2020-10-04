@@ -1,6 +1,6 @@
 import { DbLoadAccountByToken } from './db-load-account-by-token'
 import { LoadAccountByTokenRepository, Decrypter } from './db-load-account-by-token-protocols'
-import { mockAccountModel } from '@/domain/test'
+import { mockAccountModel, throwError } from '@/domain/test'
 import { mockDecrypter, mockLoadAccountByTokenRepository } from '@/data/test'
 
 type SutTypes = {
@@ -57,14 +57,14 @@ describe('DbLoadAccountByToken Usecase', () => {
 
   test('Should throw if Decrypter throws', async () => {
     const { sut, decrypterStub } = makeSut()
-    jest.spyOn(decrypterStub, 'decrypt').mockReturnValue(Promise.reject(new Error()))
-    const promise = sut.load('any_token', 'any_role')
-    await expect(promise).rejects.toThrow()
+    jest.spyOn(decrypterStub, 'decrypt').mockImplementationOnce(throwError)
+    const account = await sut.load('any_token', 'any_role')
+     expect(account).toBeNull()
   })
 
   test('Should throw if LoadAccountByToken throws', async () => {
     const { sut, loadAccountByTokenRepositoryStub } = makeSut()
-    jest.spyOn(loadAccountByTokenRepositoryStub, 'loadByToken').mockReturnValue(Promise.reject(new Error()))
+    jest.spyOn(loadAccountByTokenRepositoryStub, 'loadByToken').mockImplementationOnce(throwError)
     const promise = sut.load('any_token', 'any_role')
     await expect(promise).rejects.toThrow()
   })
