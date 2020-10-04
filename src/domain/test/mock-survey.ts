@@ -37,11 +37,11 @@ export const mockSurveyModels = (): SurveyModel[] => ([
   }
 ])
 
-export const mockAddSurveyParams = (): AddSurveyParams => ({
-  question: 'any_question',
+export const mockAddSurveyParams = (prefix: string = 'any'): AddSurveyParams => ({
+  question: `${prefix}_question`,
   answers: [{
-    image: 'any_image',
-    answer: 'any_answer'
+    image: `${prefix}_image`,
+    answer: `${prefix}_answer`
   }],
   date: new Date()
 })
